@@ -6,4 +6,5 @@ This is a work in progress and will slowly include milestones, issues, and other
 # Get a list of issues you opened
 - Edit print_my_issues.py
 - Change the variables to reflect your needs
+- Make sure you're using Python 2.x, not Python 3.x
 - Run the file - it will create a page called my_issues.html
