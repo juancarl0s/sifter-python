@@ -46,7 +46,7 @@ projs = a.projects()
 for proj in projs:
    issues = proj.issues()
    for i in issues:
-     if i.opener_name.lower() != opener_name: continue
+     if i.opener_name.lower() != opener_name.lower(): continue
      if get_date(i.created_at) < start_date: continue
      if i.priority.lower() == 'trivial': continue
      if i.category_name:
