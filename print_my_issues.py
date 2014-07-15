@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#       my_issues_page.py
+#       print_my_issues.py
 #       
 #       Copyright 2012 Mark Mikofski <marko@bwanamaro@yahoo.com>
 #       
