@@ -1,7 +1,7 @@
 # About
-sifter-python is a simple wrapper for the Sifter API.  It is written in python and is modeled around the work Garrett Dimon and Adam Keys did with their ruby gem.
+sifter-python is a simple wrapper for the Sifter API written by bryanmikaelian.  It is written in python and is modeled around the work Garrett Dimon and Adam Keys did with their ruby gem.
 
-This is a work in progress (like my C-Sharp wrapper) and will slowly include milestones, issues, and other resources.
+This is a work in progress and will slowly include milestones, issues, and other resources.
 
 # Getting a page of your issues
 - Open print_my_issues.py
