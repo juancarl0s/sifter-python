@@ -34,8 +34,9 @@ account_name = 'enter your sifter account name here, e.g., niche'
 token = 'enter your API token here'
 opener_name = 'enter your first and last name'
 start_date = date(2013, 8, 1) # replace with your desired start date
+include_archived = True
 
-a = account.Account(account_name, token)
+a = account.Account(account_name, token, include_archived)
 
 f = open('index.html', 'w')
 f.write('<html><body><ol>')
@@ -52,7 +53,7 @@ for proj in projs:
         if i.category_name.lower() == 'not an issue': continue
         if i.category_name.lower() == 'unsure if it\'s an issue': continue
     
-     printable_subject = i.subject.encode('ascii', 'replace')
+     printable_subject = i.subject.encode('ascii', 'ignore')
      f.write('<li><a href="%s">%s</a> - %s, %s, %s, %s</li>' % (i.url, printable_subject, proj.name, i.priority, i.category_name, i.created_at))
 
 f.write('</ol></body></html>')
