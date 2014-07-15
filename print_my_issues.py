@@ -35,7 +35,7 @@ token = 'enter your API token here'
 opener_name = 'enter your first and last name'
 start_date = date(2013, 8, 1) # replace with your desired start date
 
-a = account.Account(company_name, token)
+a = account.Account(account_name, token)
 
 f = open('index.html', 'w')
 f.write('<html><body><ol>')
