@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#       sifter_print.py
+#       my_issues_page.py
 #       
 #       Copyright 2012 Mark Mikofski <marko@bwanamaro@yahoo.com>
 #       
