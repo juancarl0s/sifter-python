@@ -4,6 +4,6 @@ sifter-python is a simple wrapper for the Sifter API written by bryanmikaelian. 
 This is a work in progress and will slowly include milestones, issues, and other resources.
 
 # Getting a page of your issues
-- Open print_my_issues.py
+- Edit print_my_issues.py
 - Change the variables to reflect your needs
 - Run the file - it will create a page called my_issues.html
