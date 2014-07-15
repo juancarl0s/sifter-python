@@ -5,10 +5,11 @@ import project
 
 class Account(object):
     """Account wrapper for Sifter"""
-    def __init__(self, host, token):
+    def __init__(self, host, token, include_archived):
         self.host = host
         self.token = token
-        self.url = 'https://' + self.host + '.sifterapp.com' + '/api/projects'
+        self.include_archived = include_archived
+        self.url = 'https://' + self.host + '.sifterapp.com' + '/api/projects?all=' + str(include_archived)
 
     def request(self, url):
         """Requests JSON object from Sifter URL"""
