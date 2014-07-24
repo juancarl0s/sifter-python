@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#       print_my_issues.py
+#       print_old_issues.py
 #       
 #       Copyright 2012 Mark Mikofski <marko@bwanamaro@yahoo.com>
 #       
@@ -34,9 +34,8 @@ def get_date(d):
 
 account_name = ''
 token = ''
-opener_name = ''
-start_date = date(2013, 7, 20)
-include_archived = True
+date_cutoff = date(2014, 5, 23)
+include_archived = False
 
 #######################################
 
@@ -50,15 +49,11 @@ projs = a.projects()
 for proj in projs:
    issues = proj.issues()
    for i in issues:
-     if i.opener_name.lower() != opener_name.lower(): continue
-     if get_date(i.created_at) < start_date: continue
-     if i.priority.lower() == 'trivial': continue
-     if i.category_name:
-        if i.category_name.lower() == 'not an issue': continue
-        if i.category_name.lower() == 'unsure if it\'s an issue': continue
-    
+     if get_date(i.updated_at) >= date_cutoff: continue
+     if i.status == 'Closed': continue
+
      printable_subject = i.subject.encode('ascii', 'ignore')
-     f.write('<li><a href="%s">%s</a> - %s, %s, %s, %s</li>' % (i.url, printable_subject, proj.name, i.priority, i.category_name, i.created_at))
+     f.write('<li><a href="%s">%s</a> - %s, %s, %s, %s, %s</li>' % (i.url, printable_subject, proj.name, i.priority, i.category_name, i.created_at, i.status))
 
 f.write('</ol></body></html>')
 f.close()

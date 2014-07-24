@@ -8,8 +8,8 @@ class Account(object):
     def __init__(self, host, token, include_archived):
         self.host = host
         self.token = token
-        self.include_archived = include_archived
-        self.url = 'https://' + self.host + '.sifterapp.com' + '/api/projects?all=' + str(include_archived)
+        self.url = 'https://' + self.host + '.sifterapp.com' + '/api/projects'
+        self.url += '?all=true' if include_archived else ''
 
     def request(self, url):
         """Requests JSON object from Sifter URL"""
