@@ -1,10 +1,9 @@
 # About
-sifter-python is a simple wrapper for the Sifter API written by bryanmikaelian.  It is written in python and is modeled around the work Garrett Dimon and Adam Keys did with their ruby gem.
-
-This is a work in progress and will slowly include milestones, issues, and other resources.
-
+- This is a fork of the sifter-python wrapper written by bryanmikaelian.
+- In this fork, you can get a list of issues you opened.
+ 
 # Get a list of issues you opened
-- Edit print_my_issues.py
-- Change the variables to reflect your needs
+- Change the variables in print_my_issues.py to reflect your needs
 - Make sure you're using Python 2.x, not Python 3.x
 - Run the file - it will create a page called my_issues.html
+- Walk off
