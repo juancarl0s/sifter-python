@@ -1,6 +1,3 @@
-import comment
-
-
 class Issue(object):
     """Representation of an Issue in Sifter"""
     def __init__(self, issue, account):
@@ -11,6 +8,7 @@ class Issue(object):
         self.priority = issue['priority']
         self.status = issue['status']
         self.assignee_name = issue['assignee_name']
+        self.assignee_email = issue['assignee_email']        
         self.category_name = issue['category_name']
         self.milestone_name = issue['milestone_name']
         self.opener_name = issue['opener_name']
@@ -19,15 +17,3 @@ class Issue(object):
         self.comment_count = issue['comment_count']
         self.created_at = issue['created_at']
         self.updated_at = issue['updated_at']
-
-    def comments(self):
-        """Gets Comments for a given Issue"""
-        comments = []
-        json_raw = self._account.request(self.api_url)
-        raw_issue = json_raw['issue']
-        raw_comments = raw_issue['comments']
-        for raw_comment in raw_comments:
-            c = comment.Comment(raw_comment)
-            comments.append(c)
-
-        return comments
