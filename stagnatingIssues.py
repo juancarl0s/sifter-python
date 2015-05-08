@@ -32,11 +32,13 @@ def get_date(d):
 
 def get_stagnatingIssues(account_name, assignee_email, token, include_archived, issueAge):
 
+  stagnatingIssues_number = 0
+
   a = account.Account(account_name, token, include_archived)
 
   todays_date = date.today()
 
-  html_email_body = '<html>\n<body>\n<ul>\n'
+  html_email_body = '<body>\n<ul>\n'
 
   projs = a.projects()
 
@@ -46,7 +48,6 @@ def get_stagnatingIssues(account_name, assignee_email, token, include_archived, 
 
   for proj in projs:
 
-    html_email_body += '<ul>'
     printed_project_name = False
     issues = proj.issuesAssignedTo(assignee_email)
 
@@ -56,6 +57,7 @@ def get_stagnatingIssues(account_name, assignee_email, token, include_archived, 
 
        if (i.assignee_email == assignee_email) and (i.status != 'Closed') and (get_date(i.updated_at) + timedelta(days=issueAge) < todays_date):
           something_to_print = True
+          stagnatingIssues_number += 1
           printable_subject = i.subject.replace(u"\u25ba", "&#9658;").encode('ascii', 'ignore')
 
           if printed_project_name == False:
@@ -66,11 +68,13 @@ def get_stagnatingIssues(account_name, assignee_email, token, include_archived, 
 
       html_email_body += '</ul>\n'
 
-    html_email_body += '</ul>\n'
-
   html_email_body += '</body>\n</html>'
 
   if something_to_print == True:
-    return html_email_body
+    if stagnatingIssues_number == 1:
+      html_email_body = '<html>\n<p> There is <font size="7">1</font> that has been stagnating for 90 days or more.</p>\n' + html_email_body
+    else:
+      html_email_body = '<html>\n<p> There are <font size="7">' + str(stagnatingIssues_number) + '</font> that have been stagnating for 90 days or more.</p>\n' + html_email_body
+    return html_email_body, str(stagnatingIssues_number)
   else:
-    return '0' 
+    return '0','0'
