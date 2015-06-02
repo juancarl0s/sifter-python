@@ -30,7 +30,7 @@ from datetime import datetime, timedelta, date
 def get_date(d):
    return datetime.fromtimestamp(mktime(time.strptime(d, '%Y-%m-%dT%H:%M:%SZ'))).date()
 
-def get_stagnatingIssues(account_name, assignee_email, token, include_archived, issueAge):
+def get_stagnatingIssues(account_name, assignee_email, token, include_archived, issueAge, assignee_name):
 
   stagnatingIssues_number = 0
 
@@ -38,7 +38,7 @@ def get_stagnatingIssues(account_name, assignee_email, token, include_archived, 
 
   todays_date = date.today()
 
-  html_email_body = '<body>\n<ul>\n'
+  html_email_body = ''
 
   projs = a.projects()
 
@@ -61,20 +61,24 @@ def get_stagnatingIssues(account_name, assignee_email, token, include_archived, 
           printable_subject = i.subject.replace(u"\u25ba", "&#9658;").encode('ascii', 'ignore')
 
           if printed_project_name == False:
-            html_email_body += '<li><a href="' + proj.issues_url + '">' + proj.name + '</a></li>\n<ul>\n'
+            html_email_body += '<li>' + proj.name + '</li>\n<ul>\n'
             printed_project_name = True
 
-          html_email_body += '<li><a href="' + i.url + '">' + printable_subject + '</a> - <small>Last update: ' + str(get_date(i.updated_at)) + '</small></li>\n'
+          html_email_body += '<li><a href="' + i.url + '" font="Source Sans Pro">' + printable_subject + '</a> - <small>Last update: ' + str(get_date(i.updated_at)) + '</small></li>\n'
 
+    if printed_project_name == True:
       html_email_body += '</ul>\n'
 
-  html_email_body += '</body>\n</html>'
+  html_email_body += '</ul></body>\n</html>'
 
   if something_to_print == True:
     if stagnatingIssues_number == 1:
-      html_email_body = '<html>\n<p> There is <font size="7">1</font> that has been stagnating for 90 days or more.</p>\n' + html_email_body
+      html_email_body = '<h3>There is <font size="6">' + str(stagnatingIssues_number) + '</font> issue that has been stagnating for 90+ days assigned to ' + assignee_name + '.</h3>\n<ul>\n' + html_email_bod
     else:
-      html_email_body = '<html>\n<p> There are <font size="7">' + str(stagnatingIssues_number) + '</font> that have been stagnating for 90 days or more.</p>\n' + html_email_body
-    return html_email_body, str(stagnatingIssues_number)
+      html_email_body = '<h3>There are <font size="6">' + str(stagnatingIssues_number) + '</font> issues that have been stagnating for 90+ days assigned to ' + assignee_name + '.</h3>\n<ul>\n' + html_email_body
   else:
-    return '0','0'
+      html_email_body = '<h3>Good job ' + assignee_name + '! there are <font size="6">0</font> stagnating Sifter issues assigned to you.</h3>\n<ul>\n' + html_email_body
+  
+  html_email_body = '<html>\n<p>This is an automatic reminder of forgotten Sifter issues. Some are legitimate bugs and others stop being applicable as we make changes. Keeping Sifter clean helps prioritizing issue fixes.</b></p>\n' + html_email_body    
+
+  return html_email_body, str(stagnatingIssues_number)
